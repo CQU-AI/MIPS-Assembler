@@ -35,13 +35,13 @@ class RegData:
         elif isinstance(b, str):
             b = RegData(b)
             return (
-                RegData(func(a.value, b), max(a.bin_length, b.bin_length))
+                RegData(func(a.value, b.value), max(a.bin_length, b.bin_length))
                 if return_regdata
-                else func(a.value, b)
+                else func(a.value, b.value)
             )
         elif isinstance(b, RegData):
             return (
-                RegData(func(a.value, b.value_base), max(a.bin_length, b.bin_length))
+                RegData(func(a.value, b.value), max(a.bin_length, b.bin_length))
                 if return_regdata
                 else func(a.value, b.value)
             )
@@ -171,13 +171,13 @@ class RegData:
             try:
                 if value[:2] == "0x":
                     self._value = int(value[2:], 16)
-                    self.check_overflow()
                 elif value[:2] == "0b":
                     self._value = int(value[2:], 2)
-                    self.check_overflow()
                 elif value[:2] == "0o":
                     self._value = int(value[2:], 8)
-                    self.check_overflow()
+                else:
+                    self._value = int(value)
+                self.check_overflow()
             except Exception as e:
                 raise ValueError("Unknown data value: {},{}".format(value, e))
         elif isinstance(value, bool):
