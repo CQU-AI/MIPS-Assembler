@@ -2,25 +2,25 @@
 
 > **Everyone is welcomed to contribute!**
 
-To contribute, firstly you may have to read the [README](./README.md) to know what we exactly doing here.
+To contribute, you may want to read the [README](./README.md) to find out what we are doing here.
 
 ## Dev info
-Here are some other informations for developer:
+Here are some other informations for developers:
 
-This project mainly contains two seperate part : `Assemble` and `Simlator`
+This project mainly contains two seperate part : `Assembler` and `Simulator`
 
-### `Assemble`
- - `class Assembler` : Encode mips instructions to machine code.
- - `class DisAssembler` : Decode machine code to mips instructions.
- - depends on `class RegData`,`misc.static`.
+### `Assembler`
+ - `class Assembler` : Encodes mips instructions to machine code.
+ - `class DisAssembler` : Decodes machine code to mips instructions.
+ - Depends on `class RegData`, `misc.static`.
 
-### `Simlator`
- - `class Interpreter` : Interpret mips instructions to python and run it.
- - `class Simulator` : Run the mips instructions.
- - depends on `class RegData`,`class Memory`,`class Registers`,`misc.static`.
+### `Simulator`
+ - `class Interpreter` : Parse and run mips instructions.
+ - `class Simulator` : Run the mips instructions. Coming soon.
+ - Depends on `class RegData`,`class Memory`,`class Registers`,`misc.static`.
  
-### Depends
- - `class RegData` : **[key of this project]** Deal with all the numbers and number_length stuffs.
- - `class Memory` : Sparse memory simlulation (singleton mode).
- - `class Registers` : Registers simlulation (singleton mode).
- - `misc.static` : store the static dics.
+### Dependency
+ - `class RegData` : **[Key of this project]** Deals with all kinds of numbers and number_length stuffs.
+ - `class Memory` : Simulates sparse memory (singleton mode).
+ - `class Registers` : Simulates registers (singleton mode).
+ - `misc.static` : Stores the static dictionaries.
