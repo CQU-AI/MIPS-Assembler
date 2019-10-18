@@ -12,184 +12,84 @@ import math
 
 
 class RegData:
-    __data_base = 10
-
-    @classmethod
-    def set_base(cls, data_base):
-        """
-        set the base of RegData system
-        :param data_base: base
-        :return: None
-        """
-        if data_base in [2, 8, 16, 10]:
-            cls.__data_base = data_base
-        else:
-            raise ValueError("Unsupported data base: {}".format(data_base))
-
-    def __init__(self, value, length=None):
+    def __init__(self, value, length=-1):
         """
         init the data
         :param value: string,int in any base
         :param length: max bin length
         """
+        self.bin_length = length
         self.value = value
-        self.bin_length = length if length is not None else self.bin_length
 
     def __repr__(self):
         return str(self.value)
 
-    def __add__(self, other_data):
-        if isinstance(other_data, int):
-            return RegData(self.value_base() + other_data)
-        elif isinstance(other_data, str):
-            return RegData(self.value_base() + RegData(other_data).value_base())
-        elif isinstance(other_data, RegData):
-            return RegData(self.value_base() + other_data.value_base())
-        else:
-            raise ValueError(
-                "Unable to handle data:{} in type {}".format(
-                    other_data, type(other_data)
-                )
+    @staticmethod
+    def op(a, b, func, return_regdata=True):
+        if isinstance(b, int):
+            return (
+                RegData(func(a.value, b), a.bin_length)
+                if return_regdata
+                else func(a.value, b)
             )
+        elif isinstance(b, str):
+            b = RegData(b)
+            return (
+                RegData(func(a.value, b), max(a.bin_length, b.bin_length))
+                if return_regdata
+                else func(a.value, b)
+            )
+        elif isinstance(b, RegData):
+            return (
+                RegData(func(a.value, b.value_base), max(a.bin_length, b.bin_length))
+                if return_regdata
+                else func(a.value, b.value)
+            )
+        else:
+            raise ValueError("Unable to handle data:{} in type {}".format(b, type(b)))
+
+    def __add__(self, other_data):
+        return self.op(self, other_data, int.__add__)
 
     def __sub__(self, other_data):
-        if isinstance(other_data, int):
-            return RegData(self.value_base() - other_data)
-        elif isinstance(other_data, str):
-            return RegData(self.value_base() - RegData(other_data).value_base())
-        elif isinstance(other_data, RegData):
-            return RegData(self.value_base() - other_data.value_base())
-        else:
-            raise ValueError(
-                "Unable to handle data:{} in type {}".format(
-                    other_data, type(other_data)
-                )
-            )
+        return self.op(self, other_data, int.__sub__)
 
     def __lt__(self, other_data):
-        if isinstance(other_data, int):
-            return self.value_base() < other_data
-        elif isinstance(other_data, str):
-            return self.value_base() < RegData(other_data).value_base()
-        elif isinstance(other_data, RegData):
-            return self.value_base() < other_data.value
-        else:
-            raise ValueError(
-                "Unable to handle data:{} in type {}".format(
-                    other_data, type(other_data)
-                )
-            )
+        return self.op(self, other_data, int.__lt__, return_regdata=False)
 
     def __gt__(self, other_data):
-        if isinstance(other_data, int):
-            return self.value_base() > other_data
-        elif isinstance(other_data, str):
-            return self.value_base() > RegData(other_data).value_base()
-        elif isinstance(other_data, RegData):
-            return self.value_base() > other_data.value
-        else:
-            raise ValueError(
-                "Unable to handle data:{} in type {}".format(
-                    other_data, type(other_data)
-                )
-            )
+        return self.op(self, other_data, int.__gt__, return_regdata=False)
 
     def __le__(self, other_data):
-        if isinstance(other_data, int):
-            return self.value_base() <= other_data
-        elif isinstance(other_data, str):
-            return self.value_base() <= RegData(other_data).value_base()
-        elif isinstance(other_data, RegData):
-            return self.value_base() <= other_data.value
-        else:
-            raise ValueError(
-                "Unable to handle data:{} in type {}".format(
-                    other_data, type(other_data)
-                )
-            )
+        return self.op(self, other_data, int.__le__, return_regdata=False)
 
     def __ge__(self, other_data):
-        if isinstance(other_data, int):
-            return self.value_base() >= other_data
-        elif isinstance(other_data, str):
-            return self.value_base() >= RegData(other_data).value_base()
-        elif isinstance(other_data, RegData):
-            return self.value_base() >= other_data.value
-        else:
-            raise ValueError(
-                "Unable to handle data:{} in type {}".format(
-                    other_data, type(other_data)
-                )
-            )
+        return self.op(self, other_data, int.__ge__, return_regdata=False)
 
     def __eq__(self, other_data):
-        if isinstance(other_data, int):
-            return self.value_base() == other_data
-        elif isinstance(other_data, str):
-            return self.value_base() == RegData(other_data).value_base()
-        elif isinstance(other_data, RegData):
-            return self.value_base() == other_data.value
-        else:
-            raise ValueError(
-                "Unable to handle data:{} in type {}".format(
-                    other_data, type(other_data)
-                )
-            )
+        return self.op(self, other_data, int.__eq__, return_regdata=False)
 
     def __ne__(self, other_data):
-        if isinstance(other_data, int):
-            return self.value_base() != other_data
-        elif isinstance(other_data, str):
-            return self.value_base() != RegData(other_data).value_base()
-        elif isinstance(other_data, RegData):
-            return self.value_base() != other_data.value
-        else:
-            raise ValueError(
-                "Unable to handle data:{} in type {}".format(
-                    other_data, type(other_data)
-                )
-            )
+        return self.op(self, other_data, int.__ne__, return_regdata=False)
 
     def __or__(self, other_data):
-        if isinstance(other_data, int):
-            return RegData(self.value_base() | other_data)
-        elif isinstance(other_data, str):
-            return RegData(self.value_base() | RegData(other_data).value_base())
-        elif isinstance(other_data, RegData):
-            return RegData(self.value_base() | other_data.value_base())
-        else:
-            raise ValueError(
-                "Unable to handle data:{} in type {}".format(
-                    other_data, type(other_data)
-                )
-            )
+        return self.op(self, other_data, int.__or__)
 
     def __and__(self, other_data):
-        if isinstance(other_data, int):
-            return RegData(self.value_base() & other_data)
-        elif isinstance(other_data, str):
-            return RegData(self.value_base() & RegData(other_data).value_base())
-        elif isinstance(other_data, RegData):
-            return RegData(self.value_base() & other_data.value_base())
-        else:
-            raise ValueError(
-                "Unable to handle data:{} in type {}".format(
-                    other_data, type(other_data)
-                )
-            )
+        return self.op(self, other_data, int.__and__)
 
     def __rshift__(self, n):
-        return RegData(self.value_base() >> n)
+        return RegData(self.value >> n, self.bin_length)
 
     def __lshift__(self, n):
-        return RegData(self.value_base() << n)
+        return RegData(self.value << n, self.bin_length)
 
     def __hash__(self):
-        return self.value_base().__hash__()
+        return self.value.__hash__()
 
     @property
     def hash(self):
-        return self.value_base().__hash__()
+        return self.value.__hash__()
 
     def split(self, split_index):
         """
@@ -250,9 +150,9 @@ class RegData:
     @property
     def value(self):
         """
-        :return: RegData value in RegData.__data_base
+        :return: RegData value in 10-base
         """
-        return str(self.value_base(RegData.__data_base))
+        return self._value
 
     @value.setter
     def value(self, value):
@@ -263,30 +163,37 @@ class RegData:
         """
         if value is None:
             self._value = None
-            self.bin_length = None
             return
-        try:
-            value = str(value)
-            if value[:2] == "0x":
-                self.bin_length = (len(value) - 2) * 4
-                self._value = int(value[2:], 16)
-            elif value[:2] == "0b":
-                self.bin_length = len(value) - 2
-                self._value = int(value[2:], 2)
-            elif value[:2] == "0o":
-                self.bin_length = (len(value) - 2) * 2
-                self._value = int(value[2:], 8)
-            elif value == "True":
+        elif isinstance(value, int):
+            self._value = int(value)
+            self.check_overflow()
+        elif isinstance(value, str):
+            try:
+                if value[:2] == "0x":
+                    self._value = int(value[2:], 16)
+                    self.check_overflow()
+                elif value[:2] == "0b":
+                    self._value = int(value[2:], 2)
+                    self.check_overflow()
+                elif value[:2] == "0o":
+                    self._value = int(value[2:], 8)
+                    self.check_overflow()
+            except Exception as e:
+                raise ValueError("Unknown data value: {},{}".format(value, e))
+        elif isinstance(value, bool):
+            if value:
                 self.bin_length = 32
                 self._value = 1
-            elif value == "False":
+            else:
                 self.bin_length = 32
                 self._value = 0
-            else:
-                self.bin_length = (len(bin(int(value))) - 2) * 2
-                self._value = int(value)
-        except Exception as e:
-            raise ValueError("Unknown data value: {},{}".format(value, e))
+        else:
+            raise ValueError("Unknown data value: {}".format(value))
+
+    def check_overflow(self):
+        if self._value >= (2 ** self.bin_length) and self.bin_length != -1:
+            print("Warning: RegData Overflow")
+            self._value = self._value % (2 ** (self.bin_length))
 
     @property
     def bin(self):
