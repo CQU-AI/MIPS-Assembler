@@ -101,7 +101,7 @@ def j_(LABEL):
 
 # Load upper immediate
 def lui_(rt, imm):
-    Registers.reg_set(rt, RegData(RegData(imm < 16)))
+    Registers.reg_set(rt, RegData(RegData(imm) < 16))
 
 
 def lw_(rt, add, rs):
