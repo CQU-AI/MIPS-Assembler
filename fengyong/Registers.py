@@ -6,6 +6,8 @@ class Registers:
     Registers in singleton mode
     """
 
+    __data_private = {"$HI": RegData("0", 32), "$LO": RegData("0", 32)}
+
     __data = {
         "$0": RegData("0", 32),  # 0
         "$at": RegData("0", 32),  # 由编译器生成的复合指令使用
@@ -43,8 +45,9 @@ class Registers:
         raise SyntaxError("Register can not instance, please use class method")
 
     @classmethod
-    def reg_set(cls, reg_name, value):
-        if reg_name not in cls.__data.keys():
+    def reg_set(cls, reg_name, value, is_private=False):
+        data = cls.__data_private if is_private else cls.__data
+        if reg_name not in data.keys():
             raise ValueError("Unknown register:{}".format(reg_name))
         elif not isinstance(value, RegData):
             raise TypeError(
@@ -53,14 +56,15 @@ class Registers:
         elif value.bin_length > 328:
             raise OverflowError("32-bit Register can't hold data:{}".format(value.bin))
         else:
-            cls.__data[reg_name] = value
+            data[reg_name] = value
 
     @classmethod
-    def reg_get(cls, reg_name):
-        if reg_name not in cls.__data.keys():
+    def reg_get(cls, reg_name, is_private=False):
+        data = cls.__data_private if is_private else cls.__data
+        if reg_name not in data.keys():
             raise ValueError("Unknown register:{}".format(reg_name))
         else:
-            return cls.__data[reg_name]
+            return data[reg_name]
 
     @classmethod
     def clear(cls):
