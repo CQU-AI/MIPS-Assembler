@@ -1,5 +1,7 @@
 # MIPS-Simulator
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/cqu-ai/pymips) ![PyPI](https://img.shields.io/pypi/v/fengyong) 
+
 ## Introduction
 
 MIPS-Simulator runs MIPS32 programs.
