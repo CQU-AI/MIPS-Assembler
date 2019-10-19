@@ -20,7 +20,11 @@ In other words, MIPS-simulator actually interprets mips instructions.
 ```python
 from Fengyong import Assembler
 
-instructions = "j 10000\nadd $s0,$a1,$t7\nsw $s1,10($s2)"
+instructions = """
+j 10000
+add $s0,$a1,$t7
+sw $s1,10($s2)"""
+
 machine_code = Assembler.encode(instructions)
 print(machine_code.bin)
 print(machine_code.value_base(16))
