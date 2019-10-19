@@ -1,6 +1,7 @@
-# Let A=-1.278*10^3, B=-3.90625*10^-1, the two numbers store in 16-digit NVIDIA mode. \
-# Assume that the Storage mode contains guard,round and sticky bit, and round to nearest even. \
-# Load A,B to registers in 16-digit NVIDIA mode and calculate the sum of A and B.
+# The following code store two numbers, a=-1.278*10^3
+# and b=-3.90625*10^-1, into registers s1 and s2,    
+# respectively, in 16-digit NVIDIA mode. Then, their 
+# sum is calculated and stored in s0.    
 
 
 
