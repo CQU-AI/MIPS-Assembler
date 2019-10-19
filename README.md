@@ -7,6 +7,8 @@ Unlike real simulator, which assembles the instructions into machine code and ex
 MIPS-Simulator just parse the instructions and runs them using python code.
 In other words, MIPS-simulator actually interprets mips instructions.
 
+![example.png](./example.png)
+
 ## Note
 
 - This project is in its early stage, which means some functions may not supported yet.
