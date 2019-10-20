@@ -54,7 +54,8 @@ class Stack:
             raise SyntaxError("Please use an integral multiple of 4")
         if(point > cls.__fsize):
             raise SyntaxError("Index out of range, stack doesn't have enough space to return") 
-        h = cls.__save.pop()
+        for i in range (1, point/4):
+            h = cls.__save.pop()
         cls.__fsize = cls.__fsize - point
         cls.__lsize = cls.__lsize - point
         cls.__nsize = cls.__nsize - point/4
