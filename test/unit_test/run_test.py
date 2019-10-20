@@ -16,7 +16,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(instructions, DisAssembler.decode(machine_code))
 
     def test_simulate(self):
-        path = "./dring.asm"
+        path = "../../sample/sample1/sample1.asm"
         Simulator.run_file(path)
         self.assertEqual(468968,Registers.reg_get("$s0"))
 
