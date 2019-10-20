@@ -22,21 +22,21 @@ class MyTestCase(unittest.TestCase):
 
     def test_instructions(self):
 
-        dic={
+        instructions = {
             "add":lambda x,y: x+y,
             "and":lambda x,y: x&y,
-            "or":lambda x,y: x|y,
+            "or" :lambda x,y: x|y,
             "sub":lambda x,y: x-y,
-            "xor":lambda x,y: x ^ y,
+            "xor":lambda x,y: x^y,
             }
-        for inst in dic.keys():
+        for inst in instructions .keys():
             for i in range(100):
-                a, b = random.randint(1, 2 ** 20), randon.ranint(1, 2 ** 20)
-                Simulator.run_line("addi $t0, $0, {}".format(a), return_hist=False)
-                Simulator.run_line("addi $t1, $0, {}".format(hex(b)), return_hist=False)
+                a, b = random.randint(1, 2 ** 20), random.randint(1, 2 ** 20)
+                Simulator.run_line("addi $t0, $0, {}".format(a), False)
+                Simulator.run_line("addi $t1, $0, {}".format(hex(b)), False)
 
-                Simulator.run_line("{} $t1, $s1, $s0".format(inst), return_hist=False)
-                self.assertEqual(dict[inst](a, b), Registers.reg_get("$t1"))
+                Simulator.run_line("{} $s0, $t1, $t0".format(inst), False)
+                self.assertEqual(instructions[inst](a, b), Registers.reg_get("$s0"))
 
 
     def test_muldiv(self):

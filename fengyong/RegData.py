@@ -90,6 +90,9 @@ class RegData:
     def __and__(self, other_data):
         return self.op(self, other_data, int.__and__)
 
+    def __xor__(self,other_data):
+        return self.op(self, other_data, int.__xor__)
+
     def __rshift__(self, n):
         return RegData(self.value >> n, self.bin_length)
 
@@ -98,6 +101,8 @@ class RegData:
 
     def __hash__(self):
         return self._value.__hash__()
+
+
 
     @property
     def hash(self):
