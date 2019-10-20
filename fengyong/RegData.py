@@ -15,23 +15,36 @@ class RegData:
         return str(self.value)
 
     @staticmethod
-    def op(a, b, func, return_regdata=True):
+    def op(a, b, func, return_regdata=True, res_bin_len=None):
         if isinstance(b, int):
             return (
-                RegData(func(a.value, b), a.bin_length)
+                RegData(
+                    func(a.value, b),
+                    a.bin_length if res_bin_len is None else res_bin_len,
+                )
                 if return_regdata
                 else func(a.value, b)
             )
         elif isinstance(b, str):
             b = RegData(b)
             return (
-                RegData(func(a.value, b.value), max(a.bin_length, b.bin_length))
+                RegData(
+                    func(a.value, b.value),
+                    max(a.bin_length, b.bin_length)
+                    if res_bin_len is None
+                    else res_bin_len,
+                )
                 if return_regdata
                 else func(a.value, b.value)
             )
         elif isinstance(b, RegData):
             return (
-                RegData(func(a.value, b.value), max(a.bin_length, b.bin_length))
+                RegData(
+                    func(a.value, b.value),
+                    max(a.bin_length, b.bin_length)
+                    if res_bin_len is None
+                    else res_bin_len,
+                )
                 if return_regdata
                 else func(a.value, b.value)
             )
@@ -40,6 +53,15 @@ class RegData:
 
     def __add__(self, other_data):
         return self.op(self, other_data, int.__add__)
+
+    def __mul__(self, other_data):
+        return self.op(self, other_data, int.__mul__, res_bin_len=64)
+
+    def __floordiv__(self, other_data):
+        return self.op(self, other_data, int.__floordiv__)
+
+    def __mod__(self, other_data):
+        return self.op(self, other_data, int.__mod__)
 
     def __sub__(self, other_data):
         return self.op(self, other_data, int.__sub__)
