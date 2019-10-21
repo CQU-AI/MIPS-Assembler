@@ -9,7 +9,7 @@ setup(
     description=(
         'Run MIPS with python!'
     ),
-    long_description=open('readme.rst').read(),
+    long_description=open('README.rst').read(),
     author='CQU-AI',
     author_email='peter@mail.loopy.tech',
     maintainer='loopyme',

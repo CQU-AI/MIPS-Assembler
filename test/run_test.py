@@ -8,6 +8,7 @@ import random
 
 class MyTestCase(unittest.TestCase):
     def test_assemble(self):
+        Registers.clear()
         instructions = "j 10000\nadd $s0, $a1, $t7\nsw $s1, 10($s2)\n"
         machine_code = Assembler.encode(instructions)
 
@@ -15,7 +16,8 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(instructions, DisAssembler.decode(machine_code))
 
     def test_simulate(self):
-        path = "../../sample/sample1/sample1.asm"
+        Registers.clear()
+        path = "./test/asm/sample1.asm"
         Simulator.run_file(path)
         self.assertEqual(468968, Registers.reg_get("$s0"))
 
@@ -50,7 +52,8 @@ class MyTestCase(unittest.TestCase):
                 self.assertEqual(instructions2[inst](a), Registers.reg_get("$s0"))
 
     def test_muldiv(self):
-        path = "./muldiv.asm"
+        Registers.clear()
+        path = "./test/asm/muldiv.asm"
         Simulator.run_file(path)
         self.assertEqual((0x7f7f7f7f * 0xacdb) >> 32, Registers.reg_get("$t1"))
         self.assertEqual((0x7f7f7f7f * 0xacdb) & 0xffffffff, Registers.reg_get("$t2"))
