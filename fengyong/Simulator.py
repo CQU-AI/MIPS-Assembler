@@ -10,7 +10,7 @@ class Simulator(Interpreter):
         "%help": lambda: print(
             """
         %help      : Print help message
-        %t/%a/%r   : print all the datas in t/s/all registers
+        %t/%s/%a   : print all the datas in t/s/all registers
         %t0        : print the datas in t0 register
         %t0 = 6    : set the datas in t0 to 6
         %about     : See more information about this project
@@ -18,7 +18,8 @@ class Simulator(Interpreter):
         """
         ),
         "%t": lambda: Registers.print("t"),
-        "%a": lambda: Registers.print("a"),
+        "%s": lambda: Registers.print("s"),
+        "%a": lambda: Registers.print(),
         "%q": exit,
         "%about": lambda: print(
             """
@@ -30,7 +31,7 @@ class Simulator(Interpreter):
         \_| \___|_| |_|\__, |\__, |\___/|_| |_|\__, |
                         __/ | __/ |             __/ |
                        |___/ |___/             |___/ \n\n
-        Authored by CQU-AI: Loopyme, Sean, Charles\n
+        Authored by CQU-AI: Loopyme, Sean, Charles, Musen\n
         See more information at https://github.com/CQU-AI/pymips/"""
         ),
         "%exit": exit,
