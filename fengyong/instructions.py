@@ -110,7 +110,10 @@ def lui_(rt, imm):
 
 
 def lw_(rt, add, rs):
-    dw = Memory.get_dw(Registers.reg_get(rs) + add)
+    if(rs == $sp):
+        dw = Stack.pop(rt, add)
+    else:
+        dw = Memory.get_dw(Registers.reg_get(rs) + add)
     Registers.reg_set(rt, dw)
 
 
@@ -206,8 +209,9 @@ def sub_(rd, rs, rt):
 def sw_(rt, add, rs):
     if(rs == "$sp"):         #实现push
         Stack.push(rt, add)
-    dw = Registers.reg_get(rt)
-    Memory.set_dw(Registers.reg_get(rs) + add, dw)
+    else:
+        dw = Registers.reg_get(rt)
+        Memory.set_dw(Registers.reg_get(rs) + add, dw)
 
 
 # System call
