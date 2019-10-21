@@ -14,12 +14,12 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(instructions, DisAssembler.decode(machine_code))
 
     def test_simulate(self):
-        path = "../sample1/sample1.asm"
+        path = "../sample/sample1/sample1.asm"
         Simulator.run_file(path)
         self.assertEqual(Registers.reg_get("$s0"), 468968)
 
     def test_muldiv(self):
-        path = "./muldiv.asm"
+        path = "../test/unit_test/muldiv.asm"
         Simulator.run_file(path)
         self.assertEqual(Registers.reg_get("$t1"), (0x7f7f7f7f * 0xacdb) >> 32)
         self.assertEqual(Registers.reg_get("$t2"), (0x7f7f7f7f * 0xacdb) & 0xffffffff)
