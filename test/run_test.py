@@ -21,7 +21,8 @@ class MyTestCase(unittest.TestCase):
         path = "./test/asm/sample1.asm"
         Simulator.run_file(path)
         self.assertEqual(468968, Registers.reg_get("$s0"))
-    
+
+        
     def test_stack(self):
         Registers.clear()
         path = "./test/asm/stack.asm"
@@ -29,7 +30,8 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(3, Registers.reg_get("$t4"))
         self.assertEqual(2, Registers.reg_get("$t5"))
         self.assertEqual(1, Registers.reg_get("$t6"))
-    
+        
+        
     def test_instructions1(self):
         instructions1 = {
             "add": lambda x, y: x + y,
