@@ -8,8 +8,12 @@ class RegData:
         :param value: string,int in any base
         :param length: max bin length
         """
-        self.bin_length = length
-        self.value = value
+        if isinstance(value, RegData):
+            self.bin_length = value.bin_length
+            self._value = value._value
+        else:
+            self.bin_length = length
+            self.value = value
 
     def __repr__(self):
         return str(self.value)
@@ -91,10 +95,10 @@ class RegData:
         return self.op(self, other_data, int.__and__)
 
     def __rshift__(self, n):
-        return self.op(self, other_data, int.__rshift__)
+        return self.op(self, n, int.__rshift__)
 
     def __lshift__(self, n):
-        return self.op(self, other_data, int.__lshift__)
+        return self.op(self, n, int.__lshift__)
 
     def __hash__(self):
         return self._value.__hash__()
