@@ -20,7 +20,8 @@ class Simulator(Interpreter):
         "%t": lambda: Registers.print("t"),
         "%a": lambda: Registers.print("a"),
         "%q": exit,
-        "%about": lambda: print("""
+        "%about": lambda: print(
+            """
         ______
         |  ___|
         | |_ ___ _ __   __ _ _   _  ___  _ __   __ _
@@ -30,7 +31,8 @@ class Simulator(Interpreter):
                         __/ | __/ |             __/ |
                        |___/ |___/             |___/ \n\n
         Authored by CQU-AI: Loopyme, Sean, Charles\n
-        See more information at https://github.com/CQU-AI/pymips/"""),
+        See more information at https://github.com/CQU-AI/pymips/"""
+        ),
         "%exit": exit,
     }
 

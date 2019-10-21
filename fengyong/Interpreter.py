@@ -5,19 +5,35 @@ from .RegData import RegData
 
 class Interpreter:
     Inst = {
-        "lw": lw_,
-        "sw": sw_,
         "add": add_,
         "addi": addi_,
         "and": and_,
+        "andi": andi_,
         "beq": beq_,
+        "bgez": bgez_,
+        "bgtz": bgtz_,
+        "blez": blez_,
+        "bltz": bltz_,
+        "div": div_,
         "j": j_,
+        "lui": lui_,
+        "lw": lw_,
+        "mfhi": mfhi_,
+        "mflo": mflo_,
+        "mult": mult_,
+        "noop": noop_,
         "or": or_,
-        "sub": sub_,
+        "ori": ori_,
         "sll": sll_,
+        "sllv": sllv_,
         "slt": slt_,
         "slti": slti_,
         "srl": srl_,
+        "srlv": srlv_,
+        "sub": sub_,
+        "sw": sw_,
+        "xor": xor_,
+        "xori": xori_,
     }
     label = {}
     hist_inst = []
@@ -25,7 +41,7 @@ class Interpreter:
 
     def __init__(self):
         raise SyntaxError(
-            "Interpreter can not be instantiate. Please use static method."
+            "Interpreter can not be instantiate. Please use class method."
         )
 
     @classmethod
@@ -41,7 +57,7 @@ class Interpreter:
         code_list, label = Preprocessor.prep_line(inst_line)
         if label is not None:
             cls.add_label(label)
-        elif code_list is not None:
+        if code_list is not None:
             if code_list[0] not in cls.Inst:
                 raise ModuleNotFoundError(
                     'Unknown instruction "{}".'.format(code_list[0])
@@ -52,8 +68,6 @@ class Interpreter:
             if save_hist:
                 cls.hist_inst.append(inst_line)
             cls.curr_inst += 1
-        else:
-            raise ValueError("God knows what happened")
 
     @classmethod
     def add_label(cls, label):

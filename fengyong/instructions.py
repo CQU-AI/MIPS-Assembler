@@ -5,13 +5,12 @@ from .RegData import RegData
 
 # Currently unsupported instructions
 # Unsigned problem: 			addiu addu sltiu sltu subu multu divu
-# LO/HI problem: 				div divu mfhi mflo mult multu
 # Link problem: 				bgezal bltzal jal
 # Jump problem: 				jr
 # Byte problem: 				lb sb
 # Arithmetic shift problem: 	sra
 # Other: 						syscall
-# Oct 19, 2019
+# Oct 20, 2019
 
 
 # Add (with overflow)
@@ -21,12 +20,12 @@ def add_(rd, rs, rt):
 
 # Add immediate (with overflow)
 def addi_(rt, rs, imm):
-    Registers.reg_set(rt, Registers.reg_get(rs) + int(imm))
+    Registers.reg_set(rt, Registers.reg_get(rs) + RegData(imm))
 
 
 # Add immediate unsigned(no overflow)
 # def addiu_(rt, rs, imm):
-#     Registers.reg_set(rt, Registers.reg_get(rs) + int(imm))
+#     Registers.reg_set(rt, Registers.reg_get(rs) + RegData(imm))
 
 # Add unsigned (no overflow)
 # def addu_(rd, rs, rt):
@@ -39,7 +38,7 @@ def and_(rd, rs, rt):
 
 # Bitwise and immediate
 def andi_(rt, rs, imm):
-    Registers.reg_set(rt, Registers.reg_get(rs) & int(imm))
+    Registers.reg_set(rt, Registers.reg_get(rs) & RegData(imm))
 
 
 # Branch on equal
@@ -74,7 +73,14 @@ def bltz_(rs, LABEL):
 # def bltzal_(rs, LABEL):
 
 # Divide
-# def div_(rs, rt):
+def div_(rs, rt):
+    Registers.reg_set(
+        "$LO", Registers.reg_get(rs) // Registers.reg_get(rt), is_private=True
+    )
+    Registers.reg_set(
+        "$HI", Registers.reg_get(rs) % Registers.reg_get(rt), is_private=True
+    )
+
 
 # Divide unsigned
 # def divu_(rs, rt):
@@ -95,7 +101,7 @@ def j_(LABEL):
 
 # Load upper immediate
 def lui_(rt, imm):
-    Registers.reg_set(rt, RegData(int(imm < 16)))
+    Registers.reg_set(rt, RegData(RegData(imm) < 16))
 
 
 def lw_(rt, add, rs):
@@ -104,13 +110,21 @@ def lw_(rt, add, rs):
 
 
 # Move from HI
-# def mfhi_(rd):
+def mfhi_(rd):
+    Registers.reg_set(rd, Registers.reg_get("$HI", is_private=True))
+
 
 # Move from LO
-# def mflo_(rd):
+def mflo_(rd):
+    Registers.reg_set(rd, Registers.reg_get("$LO", is_private=True))
+
 
 # Multiply
-# def mult_(rs, rt):
+def mult_(rs, rt):
+    high, low = (Registers.reg_get(rs) * Registers.reg_get(rt)).split([32, 64])
+    Registers.reg_set("$HI", high, is_private=True)
+    Registers.reg_set("$LO", low, is_private=True)
+
 
 # Multiply unsigned
 # def multu_(rs, rt):
@@ -127,7 +141,7 @@ def or_(rd, rs, rt):
 
 # Bitwise or immediate
 def ori_(rt, rs, imm):
-    Registers.reg_set(rt, Registers.reg_get(rs) | int(imm))
+    Registers.reg_set(rt, Registers.reg_get(rs) | RegData(imm))
 
 
 # Store byte
@@ -135,7 +149,7 @@ def ori_(rt, rs, imm):
 
 # Shift left logical
 def sll_(rt, rs, imm):
-    Registers.reg_set(rt, Registers.reg_get(rs) << int(imm))
+    Registers.reg_set(rt, Registers.reg_get(rs) << RegData(imm))
 
 
 # Shift left logical variable
@@ -150,24 +164,24 @@ def slt_(rd, rs, rt):
 
 # Set on less than immediate (signed)
 def slti_(rt, rs, imm):
-    Registers.reg_set(rt, RegData(Registers.reg_get(rs) < int(imm)))
+    Registers.reg_set(rt, RegData(Registers.reg_get(rs) < RegData(imm)))
 
 
 # Set on less than immediate unsigned
 # def sltiu_(rt, rs, imm):
-#    Registers.reg_set(rt, RegData(Registers.reg_get(rs) < int(imm)))
+#    Registers.reg_set(rt, RegData(Registers.reg_get(rs) < RegData(imm)))
 
 
 # Set on less than unsigned
 # def sltu_(rt, rs, imm):
-#    Registers.reg_set(rt, RegData(Registers.reg_get(rs) < int(imm)))
+#    Registers.reg_set(rt, RegData(Registers.reg_get(rs) < RegData(imm)))
 
 # Shift right arithmetic
 # def sra_(rd, rt, shamt)
 
 # Shift right logical
 def srl_(rd, rt, shamt):
-    Registers.reg_set(rd, Registers.reg_get(rt) >> int(shamt))
+    Registers.reg_set(rd, Registers.reg_get(rt) >> RegData(shamt))
 
 
 # Shift right logical variable
@@ -199,4 +213,4 @@ def xor_(rd, rs, rt):
 
 # Bitwise exclusive or immediate
 def xori_(rt, rs, imm):
-    Registers.reg_set(rt, Registers.reg_get(rs) ^ int(imm))
+    Registers.reg_set(rt, Registers.reg_get(rs) ^ RegData(imm))
