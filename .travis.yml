@@ -1,0 +1,16 @@
+language: python
+python:
+ - '3.5'
+install:
+ - python ./setup.py install
+script:
+ - python ./test/run_test.py
+deploy:
+  provider: pypi
+  user: loopyme
+  password:
+    password:
+      secure: mvO1u37zhOMBFwT5tlkxeVs0cQycVpStpqnXVFtuTHTeRuuT13lIJiPKDdxNlO7LWVVqranbs1p6B5BQuwyLPn43pgCd8LpyYi7A7BQhgDggpjnAUf8vs07BfbkHnBj1u9K6DZH/HJONuUbdXgslJH/4Vc05i3pyHjgzh4/3vnLjQJI6SIu2hEoROWr0/BEWVoK19BnWVbm4aeM3CXuHluiU9oeK4g92kWpKPRBph0J0m54747i9D3NWgbkeAcZL6J42/f7S225LWeeVQDMtmSRm/fJ95Z5gB+en6pBUVTLd80+qvmCb90hUD5/TSl7f3BEzOh1a6mRXIEA4p2Rq++BevSLiAzkWRKj7njWCkFj2nu+XHUpZI0NqOl5v9rMHqWSSuyw+M//DA9v3Lg36/5BdFKHcsGYbQ5RjJMrefPq40bRk3+UehTIvuZfmCbFApHNKJynMlumQXTx7fRDxXZQqBvzYpq7x8VY0isckcDaPZrxg1ORbz/58utuD9FUbF3vGG0PjPk9xumlvEEPRqlnp6EJulKDKpKac4tmaToyAHYyESI54s/GKU81d30SPUxBrVsRBS+tv+ASLtMC7Dv5WlqCEW0cGZRQCI/sg694REFr3OcW/VVD7NUFeijQv9DttZb6PptpIY8Jc4Ejwo9Nv3ImuDWmiD72kG9Xg/zU=
+  on:
+    tags: true
+    branch: master

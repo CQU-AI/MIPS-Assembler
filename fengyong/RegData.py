@@ -91,10 +91,10 @@ class RegData:
         return self.op(self, other_data, int.__and__)
 
     def __rshift__(self, n):
-        return RegData(self.value >> n, self.bin_length)
+        return self.op(self, other_data, int.__rshift__)
 
     def __lshift__(self, n):
-        return RegData(self.value << n, self.bin_length)
+        return self.op(self, other_data, int.__lshift__)
 
     def __hash__(self):
         return self._value.__hash__()
