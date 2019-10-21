@@ -65,37 +65,38 @@ DisAssemble
 
 Simulate - RUN!
 ~~~~~~~~~~~~~~~
- - Run mips instruction in line
-    .. code:: python
-        from fengyong import Simulator
 
-        Simulator.run_line("addi $s0, $s1, 10")
- - Run asm file
-    .. code:: python
-        from fengyong import Simulator
+.. code:: python
 
-        Simulator.run_file("../test/drings.asm")
+    from fengyong import Simulator
+
+
+    # Run mips instruction in line
+    Simulator.run_line("addi $s0, $s1, 10")
+
+    # Run asm file
+    Simulator.run_file("../test/drings.asm")
 
 Simulate - Debug
 ~~~~~~~~~~~~~~~~
 
- - Set the register data
-     .. code:: python
-        from fengyong import Registers
-        from fengyong import RegData
+.. code:: python
 
-        Registers.reg_set("$s0",RegData(100))
- - Get the register data
-     .. code:: python
-        from fengyong import Registers
+    from fengyong import Registers
+    from fengyong import RegData
+    
+    
+    # Set the register data
+    Registers.reg_set("$s0",RegData(100))
+    
+    # Get the register data
+    res = Registers.reg_get("$s0")
 
-        res = Registers.reg_get("$s0")
+    # print all the "s" registers
+    Registers.print("s")
 
-        # print all the "s" registers
-        Registers.print("s")
-
-        # print all registers
-        Registers.print()
+    # print all registers
+    Registers.print()
 
 Example
 ~~~~~~~
