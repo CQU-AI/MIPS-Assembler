@@ -177,7 +177,7 @@ def slti_(rt, rs, imm):
 #    Registers.reg_set(rt, RegData(Registers.reg_get(rs) < RegData(imm)))
 
 # Shift right arithmetic
-# def sra_(rd, rt, shamt)
+# def sra_(rd, rt, shamt)f
 
 # Shift right logical
 def srl_(rd, rt, shamt):
