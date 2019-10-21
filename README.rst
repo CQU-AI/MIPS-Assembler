@@ -112,4 +112,4 @@ for more information.
 
 .. |GitHub release (latest by date)| image:: https://img.shields.io/github/v/release/cqu-ai/pymips
 .. |PyPI| image:: https://img.shields.io/pypi/v/fengyong
-.. |Travis-CI| image:: https://img.shields.io/travis/com/CQU-AI/pymips|
+.. |Travis-CI| image:: https://img.shields.io/travis/com/CQU-AI/pymips 

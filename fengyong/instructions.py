@@ -1,7 +1,7 @@
 from .Memory import Memory
 from .Registers import Registers
 from .RegData import RegData
-
+from .Stack import Stack
 
 # Currently unsupported instructions
 # Unsigned problem: 			addiu addu sltiu sltu subu multu divu
@@ -18,8 +18,13 @@ def add_(rd, rs, rt):
     Registers.reg_set(rd, Registers.reg_get(rt) + Registers.reg_get(rs))
 
 
-# Add immediate (with overflow)
+# Add immediate (with overf low)
 def addi_(rt, rs, imm):
+    if(rt == "$sp" and rs == "$sp"):      #实现堆栈申请和归还
+        if(imm <= 0):
+            Stack.apply(imm)
+        else:
+            Stack.Sreturn(imm)
     Registers.reg_set(rt, Registers.reg_get(rs) + RegData(imm))
 
 
@@ -105,7 +110,10 @@ def lui_(rt, imm):
 
 
 def lw_(rt, add, rs):
-    dw = Memory.get_dw(Registers.reg_get(rs) + add)
+    if(rs == "$sp"):
+        dw = Stack.pop(rt, add)
+    else:
+        dw = Memory.get_dw(Registers.reg_get(rs) + add)
     Registers.reg_set(rt, dw)
 
 
@@ -177,7 +185,7 @@ def slti_(rt, rs, imm):
 #    Registers.reg_set(rt, RegData(Registers.reg_get(rs) < RegData(imm)))
 
 # Shift right arithmetic
-# def sra_(rd, rt, shamt)
+# def sra_(rd, rt, shamt)f
 
 # Shift right logical
 def srl_(rd, rt, shamt):
@@ -199,8 +207,11 @@ def sub_(rd, rs, rt):
 
 # Store word
 def sw_(rt, add, rs):
-    dw = Registers.reg_get(rt)
-    Memory.set_dw(Registers.reg_get(rs) + add, dw)
+    if(rs == "$sp"):         #实现push
+        Stack.push(rt, add)
+    else:
+        dw = Registers.reg_get(rt)
+        Memory.set_dw(Registers.reg_get(rs) + add, dw)
 
 
 # System call
