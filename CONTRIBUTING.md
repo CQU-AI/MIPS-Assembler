@@ -26,5 +26,13 @@ This project mainly contains two seperate part : `Assembler` and `Simulator`
  - `class Registers` : Simulates registers (singleton mode).
  - `misc.static` : Stores the static dictionaries.
 
-### Unit test
-See `./test/unit_test`
+## Unit test
+This project use Tarvis-CI to run checks. PR can't be merge until it passes all the tests.
+
+## To contribute
+If you want to contribute to this project, you can work on the following stuffs (ordered from easy to hard):
+ - Use this tool and send us feedbacks
+ - Fix typo
+ - Add more instruction implementations
+ - Fix the issues
+ - Write the documentation
