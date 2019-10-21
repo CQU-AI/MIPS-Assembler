@@ -28,7 +28,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(Registers.reg_get("$t2"), (0x7f7f7f7f * 0xacdb) & 0xffffffff)
         self.assertEqual(Registers.reg_get("$t3"), (0x7f7f7f7f % 0xacdb))
         self.assertEqual(Registers.reg_get("$t4"), (0x7f7f7f7f // 0xacdb))
-
+        
 
 if __name__ == "__main__":
     unittest.main()

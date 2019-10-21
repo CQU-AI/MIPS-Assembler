@@ -4,7 +4,7 @@ python:
 install:
  - python ./setup.py install
 script:
- - python ./test/run_test.py
+ - cd test && python -m unittest run_test.MyTestCase.test_assemble
 deploy:
   provider: pypi
   user: loopyme
