@@ -7,6 +7,7 @@ from fengyong import Registers
 
 class MyTestCase(unittest.TestCase):
     def test_assemble(self):
+        Registers.clear()
         instructions = "j 10000\nadd $s0, $a1, $t7\nsw $s1, 10($s2)\n"
         machine_code = Assembler.encode(instructions)
 
@@ -14,11 +15,13 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(instructions, DisAssembler.decode(machine_code))
 
     def test_simulate(self):
+        Registers.clear()
         path = "./test/asm/sample1.asm"
         Simulator.run_file(path)
         self.assertEqual(Registers.reg_get("$s0"), 468968)
 
     def test_muldiv(self):
+        Registers.clear()
         path = "./test/asm/muldiv.asm"
         Simulator.run_file(path)
         self.assertEqual(Registers.reg_get("$t1"), (0x7f7f7f7f * 0xacdb) >> 32)
