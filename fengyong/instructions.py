@@ -110,7 +110,7 @@ def lui_(rt, imm):
 
 
 def lw_(rt, add, rs):
-    if(rs == $sp):
+    if(rs == "$sp"):
         dw = Stack.pop(rt, add)
     else:
         dw = Memory.get_dw(Registers.reg_get(rs) + add)
