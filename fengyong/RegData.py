@@ -226,8 +226,11 @@ class RegData:
 
     def check_overflow(self):
         if self._value >= (2 ** self.bin_length) and self.bin_length != -1:
-            print("Warning: RegData Overflow")
+            print("Warning: RegData Overflow:0")
             self._value = self._value % (2 ** (self.bin_length))
+        elif self._value <= -(2 ** (self.bin_length - 1)) and self.bin_length != -1:
+            print("Warning: RegData Overflow:1")
+            self._value = -(-self._value % (2 ** (self.bin_length)))
 
     @property
     def bin(self):
@@ -244,14 +247,28 @@ class RegData:
         """
         if self._value is None:
             return None
+        elif self._value >= 0:
+            value = self._value
+        elif self._value < 0:
+            value = (
+                int(
+                    bin(-self._value)[2:]
+                    .zfill(self.bin_length)
+                    .replace("1", "_")
+                    .replace("0", "1")
+                    .replace("_", "0"),
+                    2,
+                )
+                + 1
+            )
         if base == 2:
-            return "0b" + bin(self._value)[2:].zfill(self.bin_length)
+            return "0b" + bin(value)[2:].zfill(self.bin_length)
         elif base == 8:
-            res = "0o" + oct(self._value)[2:].zfill(ceil(self.bin_length // 3))
+            res = "0o" + oct(value)[2:].zfill(ceil(self.bin_length // 3))
         elif base == 16:
-            res = "0x" + hex(self._value)[2:].zfill(ceil(self.bin_length // 4))
+            res = "0x" + hex(value)[2:].zfill(ceil(self.bin_length // 4))
         elif base == 10:
-            return self._value
+            return value
         else:
             raise ValueError("Unsupported data base: {}".format(base))
         return str(res)
