@@ -22,7 +22,6 @@ class MyTestCase(unittest.TestCase):
         Simulator.run_file(path)
         self.assertEqual(468968, Registers.reg_get("$s0"))
 
-        
     def test_stack(self):
         Registers.clear()
         path = "./test/asm/stack.asm"
@@ -30,8 +29,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(3, Registers.reg_get("$t4"))
         self.assertEqual(2, Registers.reg_get("$t5"))
         self.assertEqual(1, Registers.reg_get("$t6"))
-        
-        
+
     def test_instructions1(self):
         instructions1 = {
             "add": lambda x, y: x + y,
@@ -51,10 +49,7 @@ class MyTestCase(unittest.TestCase):
                 self.assertEqual(instructions1[inst](a, b), Registers.reg_get("$s0"))
 
     def test_instructions2(self):
-        instructions2 = {
-            "sll": lambda x: x << 5,
-            "srl": lambda x: x >> 5,
-        }
+        instructions2 = {"sll": lambda x: x << 5, "srl": lambda x: x >> 5}
         for inst in instructions2.keys():
             for i in range(100):
                 a = random.randint(1, 2 ** 20)
@@ -66,10 +61,10 @@ class MyTestCase(unittest.TestCase):
         Registers.clear()
         path = "./test/asm/muldiv.asm"
         Simulator.run_file(path)
-        self.assertEqual((0x7f7f7f7f * 0xacdb) >> 32, Registers.reg_get("$t1"))
-        self.assertEqual((0x7f7f7f7f * 0xacdb) & 0xffffffff, Registers.reg_get("$t2"))
-        self.assertEqual((0x7f7f7f7f % 0xacdb), Registers.reg_get("$t3"))
-        self.assertEqual((0x7f7f7f7f // 0xacdb), Registers.reg_get("$t4"))
+        self.assertEqual((0x7F7F7F7F * 0xACDB) >> 32, Registers.reg_get("$t1"))
+        self.assertEqual((0x7F7F7F7F * 0xACDB) & 0xFFFFFFFF, Registers.reg_get("$t2"))
+        self.assertEqual((0x7F7F7F7F % 0xACDB), Registers.reg_get("$t3"))
+        self.assertEqual((0x7F7F7F7F // 0xACDB), Registers.reg_get("$t4"))
 
 
 if __name__ == "__main__":

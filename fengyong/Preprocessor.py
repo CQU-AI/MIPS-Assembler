@@ -47,7 +47,7 @@ class Preprocessor:
                         lambda x: x != "",
                         mips_line.replace(",", " ")
                         .replace("(", " ")
-                        .replace("$zero","$0")
+                        .replace("$zero", "$0")
                         .replace(")", "")
                         .split(" "),
                     )
@@ -64,7 +64,7 @@ class Preprocessor:
                             this_line[1]
                             .replace(",", " ")
                             .replace("(", " ")
-                            .replace("$zero","$0")
+                            .replace("$zero", "$0")
                             .replace(")", "")
                             .split(" "),
                         )

@@ -20,8 +20,8 @@ def add_(rd, rs, rt):
 
 # Add immediate (with overf low)
 def addi_(rt, rs, imm):
-    if(rt == "$sp" and rs == "$sp"):      #实现堆栈申请和归还
-        if(imm <= 0):
+    if rt == "$sp" and rs == "$sp":  # 实现堆栈申请和归还
+        if imm <= 0:
             Stack.apply(imm)
         else:
             Stack.Sreturn(imm)
@@ -110,7 +110,7 @@ def lui_(rt, imm):
 
 
 def lw_(rt, add, rs):
-    if(rs == "$sp"):
+    if rs == "$sp":
         dw = Stack.pop(rt, add)
     else:
         dw = Memory.get_dw(Registers.reg_get(rs) + add)
@@ -207,7 +207,7 @@ def sub_(rd, rs, rt):
 
 # Store word
 def sw_(rt, add, rs):
-    if(rs == "$sp"):         #实现push
+    if rs == "$sp":  # 实现push
         Stack.push(rt, add)
     else:
         dw = Registers.reg_get(rt)
