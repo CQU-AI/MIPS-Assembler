@@ -56,7 +56,7 @@ class DisAssembler:
                 I_index_to_inst[op.hash],
                 index_to_reg[rt.hash],
                 index_to_reg[rs.hash],
-                index_to_reg[add.hash],
+                add.value_base(10),
             )
         return inst
 
