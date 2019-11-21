@@ -1,7 +1,7 @@
 MIPS-Simulator
 ==============
 
-|GitHub release (latest by date)| |PyPI| |Travis-CI| |Downloads| 
+|Code quality|_ |Travis-CI|_ |GitHub_release|_ |PyPI|_ |Downloads|
 
 Introduction
 ------------
@@ -101,7 +101,7 @@ Simulate - Debug
 Example
 ~~~~~~~
 
--  `Sample1 <https://github.com/CQU-AI/pymips/tree/master/sample/sample>`__
+-  `Sample1 <https://github.com/CQU-AI/pymips/tree/master/sample/sample1>`__
 
 Contributing
 ------------
@@ -110,7 +110,16 @@ Read
 `CONTRIBUTING <https://github.com/CQU-AI/pymips/blob/master/CONTRIBUTING.md>`__
 for more information.
 
-.. |GitHub release (latest by date)| image:: https://img.shields.io/github/v/release/cqu-ai/pymips
-.. |PyPI| image:: https://img.shields.io/pypi/v/fengyong
+.. |Code quality| image:: https://api.codacy.com/project/badge/Grade/27c6f1dcec1d410384eb5cbdb46245df
+.. _Code quality: https://app.codacy.com/gh/CQU-AI/pymips
+
 .. |Travis-CI| image:: https://img.shields.io/travis/com/CQU-AI/pymips 
+.. _Travis-CI: https://travis-ci.com/CQU-AI/pymips
+
+.. |GitHub_release| image:: https://img.shields.io/github/v/release/cqu-ai/pymips
+.. _GitHub_release: https://github.com/CQU-AI/pymips/releases
+
+.. |PyPI| image:: https://img.shields.io/pypi/v/fengyong
+.. PypI: https://pypi.org/project/fengyong/
+
 .. |Downloads| image:: https://pepy.tech/badge/fengyong
