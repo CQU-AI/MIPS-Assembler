@@ -9,3 +9,15 @@ from .RegData import RegData
 
 from .Simulator import Simulator
 from .Interpreter import Interpreter
+
+for i in [
+    Assembler,
+    DisAssembler,
+    Preprocessor,
+    Memory,
+    Registers,
+    RegData,
+    Simulator,
+    Interpreter,
+]:
+    pass

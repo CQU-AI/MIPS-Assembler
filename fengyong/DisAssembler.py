@@ -1,5 +1,5 @@
 from .RegData import RegData
-from .static import *
+from .static import index_to_reg, R_index_to_inst, I_index_to_inst, J_index_to_inst
 
 
 class DisAssembler:
@@ -29,7 +29,7 @@ class DisAssembler:
 
     @staticmethod
     def r_decode(code):
-        op, rs, rt, rd, shamt, funct = code.split([6, 11, 16, 21, 26, 32])
+        op, rs, rt, rd, _, funct = code.split([6, 11, 16, 21, 26, 32])
         if rt == 0 and rd == 0:
             inst = "{} {}".format(R_index_to_inst[funct.hash], index_to_reg[rs.hash])
         else:

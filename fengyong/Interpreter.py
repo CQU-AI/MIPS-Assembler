@@ -1,6 +1,38 @@
-from .instructions import *
 from .Preprocessor import Preprocessor
+from .Memory import Memory
+from .Registers import Registers
 from .RegData import RegData
+from .instructions import (
+    add_,
+    addi_,
+    and_,
+    andi_,
+    beq_,
+    bgez_,
+    bgtz_,
+    blez_,
+    bltz_,
+    div_,
+    j_,
+    lui_,
+    lw_,
+    mfhi_,
+    mflo_,
+    mult_,
+    noop_,
+    or_,
+    ori_,
+    sll_,
+    sllv_,
+    slt_,
+    slti_,
+    srl_,
+    srlv_,
+    sub_,
+    sw_,
+    xor_,
+    xori_,
+)
 
 
 class Interpreter:

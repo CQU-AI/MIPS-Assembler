@@ -1,8 +1,8 @@
 from .Preprocessor import Preprocessor
 from .Interpreter import Interpreter
-from .Memory import Memory
 from .Registers import Registers
-from .static import *
+from .static import reg_to_index
+from .RegData import RegData
 
 
 class Simulator(Interpreter):

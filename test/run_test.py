@@ -3,7 +3,6 @@ from fengyong import Assembler
 from fengyong import DisAssembler
 from fengyong import Simulator
 from fengyong import Registers
-from fengyong import Stack
 import random
 
 

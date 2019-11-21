@@ -1,5 +1,5 @@
 from .RegData import RegData
-from .static import *
+from .static import reg_to_index, R_inst_to_index, I_inst_to_index, J_inst_to_index
 from .Preprocessor import Preprocessor
 
 
