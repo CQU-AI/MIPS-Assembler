@@ -120,6 +120,6 @@ for more information.
 .. _GitHub_release: https://github.com/CQU-AI/pymips/releases
 
 .. |PyPI| image:: https://img.shields.io/pypi/v/fengyong
-.. PypI: https://pypi.org/project/fengyong/
+.. _PyPI: https://pypi.org/project/fengyong/
 
 .. |Downloads| image:: https://pepy.tech/badge/fengyong
